@@ -30,6 +30,10 @@ def get_db():
     finally:
         db.close()
 
+@app.get("/")
+def index():
+    return "Welcome to a FastAPI home page. Go to /docs too see the endpoints."
+
 @app.post("/register", response_model=schemas.User)
 def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=user.email)
